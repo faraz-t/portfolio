@@ -16,7 +16,7 @@ const specialFont = Playfair_Display({
   variable: "--font-special",
 });
 
-const stardustFont = Geist({
+const stardustFont = Playfair_Display({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-stardust",

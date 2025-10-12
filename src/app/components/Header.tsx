@@ -27,7 +27,7 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--foreground)]/20 bg-[var(--background)]/95 backdrop-blur-md text-[var(--foreground)]">
+    <header className="sticky top-0 z-50 border-b border-[var(--foreground)]/20 bg-[var(--background)]/25 backdrop-blur-lg text-[var(--foreground)]">
       <nav className="flex items-center justify-between w-full px-6 py-4">
         {/* Left side: Name */}
         <Link href="/" className="text-lg font-semibold hover:opacity-70">

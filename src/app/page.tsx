@@ -4,8 +4,8 @@ export default function HomePage() {
   return (
     <main className="mx-auto max-w-4xl px-6 md:px-8 py-16 space-y-12 leading-[1.8]">
       {/* Intro */}
-      <h1 className="stardust-text text-6xl leading-tight">
-        Hey, I'm Faraz.
+      <h1 className="text-6xl leading-tight">
+        Hey, I'm <span className="stardust-text">Faraz</span>.
       </h1>
 
       <p className="text-4xl text-[var(--foreground)] leading-10 tracking-[-0.03em] mb-8">
