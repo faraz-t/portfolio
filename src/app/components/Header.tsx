@@ -18,11 +18,15 @@ export default function Header() {
     setTheme(newTheme);
 
     if (newTheme === "dark") {
-      root.style.setProperty("--background", "#0a0a0a");
-      root.style.setProperty("--foreground", "#ededed");
+      root.style.setProperty("--background", "#000000");
+      root.style.setProperty("--foreground", "#ffffff");
+      root.style.setProperty("--background-rgb", "0, 0, 0");
+      root.style.setProperty("--foreground-rgb", "255, 255, 255");
     } else {
       root.style.setProperty("--background", "#ffffff");
-      root.style.setProperty("--foreground", "#171717");
+      root.style.setProperty("--foreground", "#000000");
+      root.style.setProperty("--background-rgb", "255, 255, 255");
+      root.style.setProperty("--foreground-rgb", "0, 0, 0");
     }
   };
 

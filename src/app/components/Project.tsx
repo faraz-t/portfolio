@@ -9,7 +9,7 @@ interface ProjectProps {
   date?: string;
   tags?: string[];
   github?: string;
-  slug?: string; // internal project page (e.g. "portfolio-revamp")
+  slug?: string;
 }
 
 const Project: React.FC<ProjectProps> = ({
@@ -23,13 +23,26 @@ const Project: React.FC<ProjectProps> = ({
 }) => {
   return (
     <div className="flex flex-col w-full">
-      {/* Image */}
-      <img
-        src={imageSrc}
-        alt={title}
-        className="w-full h-48 md:h-56 lg:h-64 rounded-xl border border-gray-300 dark:border-gray-600 object-cover"
-      />
+      {/* Image with blurred color bleed */}
+      <div className="relative w-full h-48 md:h-56 lg:h-64 rounded-xl overflow-visible">
+        {/* Centered blurred glow */}
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 blur-[120px] scale-[1.3] opacity-70 rounded-xl w-full h-full"
+          style={{
+            backgroundImage: `url(${imageSrc})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            filter: "blur(100px) saturate(150%) brightness(60%)",
+          }}
+        ></div>
 
+        {/* Main image */}
+        <img
+          src={imageSrc}
+          alt={title}
+          className="relative z-10 w-full h-full object-cover rounded-xl border border-gray-300 dark:border-gray-600"
+        />
+      </div>
       {/* Text block */}
       <div className="mt-4 flex flex-col gap-2 w-full">
         {/* Title + icons */}
@@ -70,7 +83,6 @@ const Project: React.FC<ProjectProps> = ({
         {/* Metadata: tags (left) + date (right) */}
         {(date || tags.length > 0) && (
           <div className="flex justify-between items-center text-sm">
-            {/* Tags */}
             <div className="flex flex-wrap gap-2 justify-start">
               {tags.map((tag) => (
                 <span
@@ -81,12 +93,8 @@ const Project: React.FC<ProjectProps> = ({
                 </span>
               ))}
             </div>
-
-            {/* Date */}
             {date && (
-              <span className="text-gray-500 dark:text-gray-400">
-                {date}
-              </span>
+              <span className="text-gray-500 dark:text-gray-400">{date}</span>
             )}
           </div>
         )}

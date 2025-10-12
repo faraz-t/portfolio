@@ -5,6 +5,8 @@
   --foreground: #ffffff;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --background-rgb: 0, 0, 0;
+  --foreground-rgb: 255, 255, 255;
 }
 
 body {
@@ -39,8 +41,10 @@ body {
   );
   background-size: 800% 100%;
   animation: shimmer 8s linear infinite;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6),
+               0 0 16px rgba(161, 196, 253, 0.4),
+               0 0 24px rgba(194, 233, 251, 0.3);
 }
-
 @keyframes shimmer {
   0% {
     background-position: 0% 50%;

@@ -68,6 +68,7 @@ export default function HomePage() {
             date="2024"
             tags={["web-app", "ai", "cybersecurity"]}
             github="https://github.com/jacob-guglielmin/immuneit"
+            slug="immune-it"
           />
           <Project
             imageSrc="/test.jpg"
