@@ -15,6 +15,16 @@ body {
   font-family: var(--font-body), sans-serif;
 }
 
+::selection {
+  background: #ecbeff;
+  color: #000;
+}
+
+::-moz-selection {
+  background: #ecbeff;
+  color: #000;
+}
+
 .highlight {
   font-family: var(--font-stardust), serif;
   font-style: italic;

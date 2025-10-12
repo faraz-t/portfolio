@@ -23,29 +23,26 @@ const Project: React.FC<ProjectProps> = ({
 }) => {
   return (
     <div className="flex flex-col w-full">
-      {/* Image with blurred color bleed */}
       <div className="relative w-full h-48 md:h-56 lg:h-64 rounded-xl overflow-visible">
-        {/* Centered blurred glow */}
+        {/* glow */}
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 blur-[120px] scale-[1.3] opacity-70 rounded-xl w-full h-full"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 blur-[120px] scale-[1.4] opacity-80 rounded-xl w-full h-full"
           style={{
             backgroundImage: `url(${imageSrc})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
-            filter: "blur(100px) saturate(150%) brightness(60%)",
+            filter: "blur(100px) saturate(200%) brightness(60%)",
           }}
         ></div>
 
-        {/* Main image */}
+        {/* image */}
         <img
           src={imageSrc}
           alt={title}
           className="relative z-10 w-full h-full object-cover rounded-xl border border-gray-300 dark:border-gray-600"
         />
       </div>
-      {/* Text block */}
       <div className="mt-4 flex flex-col gap-2 w-full">
-        {/* Title + icons */}
         <div className="flex justify-between items-center">
           <h3 className="text-large md:text-xl font-semibold text-foreground">
             {title}
@@ -75,12 +72,11 @@ const Project: React.FC<ProjectProps> = ({
           </div>
         </div>
 
-        {/* Description */}
         <p className="text-sm leading-5 text-gray-600 dark:text-gray-400">
           {description}
         </p>
 
-        {/* Metadata: tags (left) + date (right) */}
+        {/* metadata: tags (left) + date (right) */}
         {(date || tags.length > 0) && (
           <div className="flex justify-between items-center text-sm">
             <div className="flex flex-wrap gap-2 justify-start">
