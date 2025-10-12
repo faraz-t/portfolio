@@ -2,32 +2,31 @@ import Project from "./components/Project";
 
 export default function HomePage() {
   return (
-    <main className="mx-auto px-8 md:px-16 py-12 space-y-12 leading-[1.8]">
-      {/* Name */}
+    <main className="mx-auto max-w-4xl px-6 md:px-8 py-16 space-y-12 leading-[1.8]">
+      {/* Intro */}
       <h1 className="stardust-text text-6xl leading-tight">
         Hey, I'm Faraz.
       </h1>
 
-      <p className="text-4xl text-[var(--foreground)] leading-10 tracking-[-0.03em] mb-8 max-w-3xl">
+      <p className="text-4xl text-[var(--foreground)] leading-10 tracking-[-0.03em] mb-8">
         I'm a <span className="highlight">student</span> and <span className="highlight">developer</span>, interested in <span className="highlight">full-stack development</span>, <span className="highlight">data</span>, and <span className="highlight">machine learning</span>.
       </p>
 
-      <p className="text-xl text-[var(--foreground)]/75 leading-7 mb-6 max-w-3xl">
+      <p className="text-xl text-[var(--foreground)]/75 leading-7 mb-6">
         I currently attend the <span className="highlight">University of British Columbia</span>, pursuing a degree in <span className="highlight">Computer Science</span> and <span className="highlight">Data Science</span>.
       </p>
 
-      <p className="text-xl text-[var(--foreground)]/75 leading-7 mb-6 max-w-3xl">
+      <p className="text-xl text-[var(--foreground)]/75 leading-7 mb-6">
         I'm also an administrative lead & developer for <span className="highlight">UBC Bionics</span>, where I write full-stack code while leading a team of web devs, financial officers, and sponsorship coordinators. Previously, I did freelance web development for a company that aggregates reviews, and helped them reach a <span className="highlight">300%</span> increase in traffic over a 4-month period.
       </p>
 
-      <p className="text-xl text-[var(--foreground)]/75 leading-7 mb-6 max-w-3xl">
+      <p className="text-xl text-[var(--foreground)]/75 leading-7 mb-6">
         I am passionate about building software that is <span className="highlight">simple</span>, <span className="highlight">powerful</span>, and <span className="highlight">elegant</span>. This website is a short collection of some of my recent projects and experiments. I hope you find something interesting!
       </p>
 
-      
-
+      {/* Projects */}
       <section className="py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
           <Project
             imageSrc="/test.jpg"
             title="BillBoard"

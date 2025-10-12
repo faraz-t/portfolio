@@ -27,7 +27,7 @@ const Project: React.FC<ProjectProps> = ({
       <img
         src={imageSrc}
         alt={title}
-        className="w-full h-64 md:h-72 lg:h-80 rounded-xl border border-gray-300 dark:border-gray-600 object-cover"
+        className="w-full h-48 md:h-56 lg:h-64 rounded-xl border border-gray-300 dark:border-gray-600 object-cover"
       />
 
       {/* Text block */}
