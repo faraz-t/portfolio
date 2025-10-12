@@ -32,7 +32,7 @@ export default function Footer() {
   const togglePower = () => setIsOn(!isOn);
 
   return (
-    <footer className="border-t border-[var(--foreground)]/10 bg-[var(--background)] text-[var(--foreground)] py-4">
+    <footer className="border-t border-[var(--foreground)]/20 bg-[var(--background)] text-[var(--foreground)] py-4">
       <div className="flex items-center justify-between w-full px-6 text-sm">
         {/* Left: Copyright */}
         <p>© <ClientOnlyYear /> Faraz Tehrani. All rights reserved.</p>

@@ -27,11 +27,11 @@ export default function Header() {
   };
 
   return (
-    <header className="border-b border-[var(--foreground)]/10 bg-[var(--background)] text-[var(--foreground)]">
+    <header className="sticky top-0 z-50 border-b border-[var(--foreground)]/20 bg-[var(--background)]/95 backdrop-blur-md text-[var(--foreground)]">
       <nav className="flex items-center justify-between w-full px-6 py-4">
         {/* Left side: Name */}
         <Link href="/" className="text-lg font-semibold hover:opacity-70">
-          faraz.me {'>'} home
+          Faraz Tehrani
         </Link>
 
         {/* Right side: Icons + Divider + Theme toggle */}

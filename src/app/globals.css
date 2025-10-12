@@ -21,16 +21,38 @@ body {
 }
 
 .highlight {
-  font-family: var(--font-special), serif;
+  font-family: var(--font-stardust), serif;
   font-style: italic;
   text-decoration: underline dotted var(--foreground);
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--foreground) 60%, transparent);
   transition: color 0.3s ease, text-decoration-color 0.3s ease;
 }
 
+.stardust-text {
+  display: inline-block;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(
+    270deg,
+    #ffffff,
+    #a1c4fd,
+    #c2e9fb,
+    #a18cd1,
+    #fbc2eb,
+    #ffffff
+  );
+  background-size: 800% 100%;
+  animation: shimmer 8s linear infinite;
+}
 
-.highlight:hover {
-  color: var(--foreground);
-  text-decoration-color: currentColor;
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
 }

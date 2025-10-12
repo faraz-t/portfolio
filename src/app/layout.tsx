@@ -3,7 +3,7 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
+import { Geist, Playfair_Display} from "next/font/google";
 
 const bodyFont = Geist({
   subsets: ["latin"],
@@ -16,6 +16,12 @@ const specialFont = Playfair_Display({
   variable: "--font-special",
 });
 
+const stardustFont = Geist({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-stardust",
+});
+
 export const metadata: Metadata = {
   title: "My Portfolio",
   description: "Showcasing my projects and skills",
@@ -25,7 +31,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${bodyFont.variable} ${specialFont.variable}`}>
+    <html lang="en" className={`${bodyFont.variable} ${specialFont.variable} ${stardustFont.variable}`}>
       <body className="antialiased flex min-h-screen flex-col">
         <Header />
         <main className="flex-1">{children}</main>

@@ -4,58 +4,98 @@ export default function HomePage() {
   return (
     <main className="mx-auto px-8 md:px-16 py-12 space-y-12 leading-[1.8]">
       {/* Name */}
-      <h1 className="relative z-10 text-6xl font-bold leading-tight tracking-tight">
-        Faraz Tehrani
+      <h1 className="stardust-text text-6xl leading-tight">
+        Hey, I'm Faraz.
       </h1>
 
       <p className="text-4xl text-[var(--foreground)] leading-10 tracking-[-0.03em] mb-8 max-w-3xl">
-        I'm a student at the <span className="highlight">University of British Columbia</span>, 
-        interested in <span className="highlight">full-stack development</span>, {" "}
-        <span className="highlight">data</span>, {" "}and <span className="highlight">machine learning</span>.
+        I'm a <span className="highlight">student</span> and <span className="highlight">developer</span>, interested in <span className="highlight">full-stack development</span>, <span className="highlight">data</span>, and <span className="highlight">machine learning</span>.
       </p>
 
       <p className="text-xl text-[var(--foreground)]/75 leading-7 mb-6 max-w-3xl">
-        My background includes working with{" "}
-        <span className="highlight">JavaScript</span>,{" "}
-        <span className="highlight">TypeScript</span>,{" "}
-        <span className="highlight">React</span>, and{" "}
-        <span className="highlight">Next.js</span> to create responsive and
-        accessible web applications. I enjoy solving complex problems with
-        simple, maintainable code.
+        I currently attend the <span className="highlight">University of British Columbia</span>, pursuing a degree in <span className="highlight">Computer Science</span> and <span className="highlight">Data Science</span>.
       </p>
 
       <p className="text-xl text-[var(--foreground)]/75 leading-7 mb-6 max-w-3xl">
-        Beyond coding, I’m interested in{" "}
-        <span className="highlight">creative technology</span>,{" "}
-        <span className="highlight">data visualization</span>, and{" "}
-        <span className="highlight">interactive media</span> — blending art and
-        logic to tell stories through software. Below are some of my selected projects.
+        I'm also an administrative lead & developer for <span className="highlight">UBC Bionics</span>, where I write full-stack code while leading a team of web devs, financial officers, and sponsorship coordinators. Previously, I did freelance web development for a company that aggregates reviews, and helped them reach a <span className="highlight">300%</span> increase in traffic over a 4-month period.
       </p>
+
+      <p className="text-xl text-[var(--foreground)]/75 leading-7 mb-6 max-w-3xl">
+        I am passionate about building software that is <span className="highlight">simple</span>, <span className="highlight">powerful</span>, and <span className="highlight">elegant</span>. This website is a short collection of some of my recent projects and experiments. I hope you find something interesting!
+      </p>
+
+      
 
       <section className="py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <Project
             imageSrc="/test.jpg"
-            title="My Portfolio Revamp"
-            description="A modern Next.js portfolio with unique font styling, animations, and a project showcase."
-            date="Oct 2025"
-            tags={["Next.js", "Tailwind", "React", "TypeScript"]}
+            title="BillBoard"
+            description="Full-stack policy discussion platform with forums, petitions, polls, maps, AI integration, and more."
+            date="2025"
+            tags={["full-stack", "relational-database", "ai",]}
+            github="https://github.com/farazht/billboard"
+            slug="billboard"
           />
-
           <Project
             imageSrc="/test.jpg"
-            title="Particle Life Simulation"
-            description="A custom particle life simulation with unique behaviors and rules."
-            date="Sep 2025"
-            tags={["JavaScript", "Canvas", "Simulation"]}
+            title="Custom Neural Network"
+            description="Artificial neural network implemented from scratch in C++ to achieve 97% accuracy on image classification."
+            date="2025"
+            tags={["machine-learning", "linear-algebra", "math"]}
+            github="https://github.com/farazht/neural-network"
+            slug="neural-network"
           />
-
           <Project
             imageSrc="/test.jpg"
-            title="Data Visualization Dashboard"
-            description="Interactive charts and dashboards built with D3.js and React for analytics insights."
-            date="Aug 2025"
-            tags={["D3.js", "React", "Data"]}
+            title="Portfolio(s)"
+            description="A brief history of portfolio projects I've built with various technologies over the past few years."
+            date="2025"
+            tags={["web", "graphic-design", "ui-ux"]}
+            slug="portfolio"
+          />
+          <Project
+            imageSrc="/test.jpg"
+            title="InsightUBC"
+            description="Full-stack application using a RESTful API to query class section datasets and display comprehensive insights."
+            date="2024"
+            tags={["full-stack", "rest-api", "data-viz"]}
+            slug="insight-ubc"
+          />
+          <Project
+            imageSrc="/test.jpg"
+            title="ImmuneIT"
+            description="Cybersecurity system designed for growing Canadian businesses in healthcare."
+            date="2024"
+            tags={["web-app", "ai", "cybersecurity"]}
+            github="https://github.com/jacob-guglielmin/immuneit"
+          />
+          <Project
+            imageSrc="/test.jpg"
+            title="Identifying Heart Disease"
+            description="Comparing the efficacy of 4 different classification models in predicting coronary heart disease."
+            date="2024"
+            tags={["statistics", "data-viz", "machine-learning"]}
+            github="https://github.com/farazht/heart-disease"
+            slug="heart-disease"
+          />
+          <Project
+            imageSrc="/test.jpg"
+            title="ElegantChaos"
+            description="Tool for visualizing chaotic mathematical systems based on x-y-time equations."
+            date="2024"
+            tags={["mathematics", "algorithms"]}
+            github="https://github.com/farazht/elegantchaos"
+            slug="elegant-chaos"
+          />
+          <Project
+            imageSrc="/test.jpg"
+            title="StellarSavings"
+            description="Educational finance management platform tailored for youth, integrating gamification and friendly visuals."
+            date="2024"
+            tags={["web-app", "front-end"]}
+            github="https://github.com/e-woo/stellar-savings"
+            slug="stellar-savings"
           />
         </div>
       </section>
