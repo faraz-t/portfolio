@@ -63,7 +63,7 @@ export default function HomePage() {
           <Fade>
             <Project
               imageSrc="/portfolio.png"
-              title="Portfolios"
+              title="Portfolio"
               description="A brief history of portfolio projects I've built with various technologies over the past few years."
               date="2025"
               tags={["web", "graphic-design", "ui-ux"]}
