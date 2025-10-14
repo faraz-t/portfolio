@@ -1,5 +1,7 @@
 import Project from "./components/Project";
 import Fade from "./components/Fade";
+import Showcase from "./components/Showcase";
+import { Github, Linkedin, Mail } from "lucide-react";
 
 export default function HomePage() {
   return (
@@ -124,8 +126,36 @@ export default function HomePage() {
               slug="stellar-savings"
             />
           </Fade>
-        </div>
-      </section>
+      </div>
+      <Fade>
+        <Showcase title="Feel free to reach out!">
+          <div className="flex items-center justify-center gap-6 mt-2">
+            <a
+              href="https://github.com/farazht"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-70 text-white transition-opacity"
+            >
+              <Github size={22} />
+            </a>
+            <a
+              href="https://linkedin.com/in/farazht"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-70 text-white transition-opacity"
+            >
+              <Linkedin size={22} />
+            </a>
+            <a
+              href="mailto:youremail@example.com"
+              className="hover:opacity-70 text-white transition-opacity"
+            >
+              <Mail size={22} />
+            </a>
+          </div>
+        </Showcase>
+      </Fade>
+    </section>
     </main>
   );
 }

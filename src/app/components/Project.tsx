@@ -21,32 +21,54 @@ const Project: React.FC<ProjectProps> = ({
   github,
   slug,
 }) => {
+  const imageContent = (
+    <div className="relative w-full h-48 md:h-56 lg:h-64 rounded-xl overflow-visible group">
+      {/* glow */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 blur-[120px] scale-[1.2] opacity-80 rounded-xl w-full h-full"
+        style={{
+          backgroundImage: `url(${imageSrc})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          filter: "blur(100px) saturate(500%) brightness(60%)",
+        }}
+      ></div>
+
+      {/* highlight overlay */}
+      <div className="absolute inset-0 rounded-xl pointer-events-none transition ring-2 ring-primary/60 opacity-0 group-hover:opacity-100"></div>
+
+      {/* image */}
+      <img
+        src={imageSrc}
+        alt={title}
+        className="relative z-10 w-full h-full object-cover rounded-xl border border-gray-300 dark:border-gray-600 transition-shadow group-hover:shadow-xl group-hover:shadow-primary/30"
+      />
+    </div>
+  );
+
   return (
     <div className="flex flex-col w-full">
-      <div className="relative w-full h-48 md:h-56 lg:h-64 rounded-xl overflow-visible">
-        {/* glow */}
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 blur-[120px] scale-[1.4] opacity-80 rounded-xl w-full h-full"
-          style={{
-            backgroundImage: `url(${imageSrc})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            filter: "blur(100px) saturate(200%) brightness(60%)",
-          }}
-        ></div>
-
-        {/* image */}
-        <img
-          src={imageSrc}
-          alt={title}
-          className="relative z-10 w-full h-full object-cover rounded-xl border border-gray-300 dark:border-gray-600"
-        />
-      </div>
+      {slug ? (
+        <Link href={`/projects/${slug}`} className="block focus:outline-none">
+          {imageContent}
+        </Link>
+      ) : (
+        imageContent
+      )}
       <div className="mt-4 flex flex-col gap-2 w-full">
         <div className="flex justify-between items-center">
-          <h3 className="text-large md:text-xl font-semibold text-foreground">
-            {title}
-          </h3>
+          {slug ? (
+            <Link
+              href={`/projects/${slug}`}
+              className="text-large md:text-xl font-semibold text-foreground hover:underline underline-offset-4 transition"
+            >
+              {title}
+            </Link>
+          ) : (
+            <h3 className="text-large md:text-xl font-semibold text-foreground">
+              {title}
+            </h3>
+          )}
 
           <div className="flex items-center gap-3">
             {github && (

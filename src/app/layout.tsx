@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Glow from "./components/Glow";
+import MouseGlow from "./components/MouseGlow";
 import { Geist, Playfair_Display } from "next/font/google";
 
 const bodyFont = Geist({
@@ -36,7 +36,7 @@ export default function RootLayout({
       className={`${bodyFont.variable} ${specialFont.variable} ${stardustFont.variable}`}
     >
       <body className="antialiased flex min-h-screen flex-col relative overflow-x-hidden">
-        <Glow />
+        <MouseGlow />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

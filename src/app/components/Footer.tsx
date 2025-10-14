@@ -33,12 +33,14 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-[var(--foreground)]/20 bg-[var(--background)] text-[var(--foreground)] py-4">
-      <div className="flex items-center justify-between w-full px-6 text-sm">
-        {/* Left: Copyright */}
-        <p>© <ClientOnlyYear /> Faraz Tehrani. All rights reserved.</p>
+      <div className="flex flex-col items-center justify-center w-full px-6 text-sm sm:flex-row sm:items-center sm:justify-between">
+        {/* Copyright - always visible, centered on mobile */}
+        <p className="text-center w-full sm:w-auto sm:text-left">
+          © <ClientOnlyYear /> Faraz Tehrani. All rights reserved.
+        </p>
 
-        {/* Right: Text links + divider + power switch */}
-        <div className="flex items-center gap-4">
+        {/* Right: Text links + divider + power switch (hidden on mobile) */}
+        <div className="hidden sm:flex items-center gap-4">
           {/* Links */}
           <div className="flex gap-4">
             <a
@@ -71,7 +73,6 @@ export default function Footer() {
             className="flex items-center gap-2"
           >
             <PowerIcon isOn={isOn} />
-            {/* darker than foreground text by a bit */}
             <span className="text-[var(--foreground)]/80">{isOn ? "SUBSPACE IS OPEN" : "SUBSPACE IS CLOSED"}</span>
           </button>
         </div>
