@@ -4,18 +4,10 @@ import React from "react";
 import { Highlight, themes } from "prism-react-renderer";
 import Figure from "@/app/components/Figure";
 import ImageGlow from "@/app/components/ImageGlow";
+import { Github } from "lucide-react";
+import Showcase from "@/app/components/Showcase";
 
 export default function BillBoardPage() {
-  const codeBlock = `const fetchPolicies = async () => {
-  const { data, error } = await supabase
-    .from("Policies")
-    .select("*")
-    .order("created_at", { ascending: false });
-
-  if (error) throw error;
-  return data;
-};`;
-
   return (
     <main className="mx-auto max-w-4xl px-6 md:px-8 py-16 space-y-10 leading-[1.8]">
       {/* Title */}
@@ -74,7 +66,7 @@ export default function BillBoardPage() {
 
       {/* Body */}
       <section className="prose max-w-none text-[var(--foreground)]/80 leading-7 space-y-6">
-        <h2 className="text-2xl font-bold">Context</h2>
+        <h2 className="text-2xl font-bold">Introduction</h2>
 
         <p>
             BillBoard was built by me and 4 of my friends at <a className="font-medium text-blue-600 dark:text-blue-400" href="https://hackthechangeyyc.ca/">HackTheChange 2024</a>, a 24-hour hackathon. We recognized several problems with how people engage with their local government:
@@ -255,6 +247,17 @@ export default function BillBoardPage() {
         </p>
 
         <Figure src="/figures/billboard-billy.png" alt="AI Chatbot (Billy)" caption="Figure 6: AI chatbot (Billy)" brightness={20} />
+
+        <p>
+        This was the most fun I've had building a hackathon project - it was the most ambitious 24-hour idea I've ever worked on, but we managed to get almost all of it working! If you're interested in seeing more, check out the GitHub repository:
+        </p>
+
+        <Showcase>
+            <a href="https://github.com/farazht/billboard" target="_blank" rel="noopener noreferrer">
+                <Github className="inline-block mr-2" size={20} />
+                View on GitHub
+            </a>
+        </Showcase>
       </section>
     </main>
   );
