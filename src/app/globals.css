@@ -35,6 +35,10 @@ body {
   transition: color 0.3s ease, text-decoration-color 0.3s ease;
 }
 
+.uprotate:hover {
+  transform: rotateX(0deg) translateZ(12px);
+}
+
 .stardust-text {
   display: inline-block;
   color: transparent;

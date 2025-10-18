@@ -1,7 +1,7 @@
 import Project from "./components/Project";
 import Fade from "./components/Fade";
 import Showcase from "./components/Showcase";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin } from "lucide-react";
 
 export default function HomePage() {
   return (
@@ -11,6 +11,10 @@ export default function HomePage() {
         <h1 className="text-6xl leading-tight">
           Hey, I'm <span className="stardust-text">Faraz</span>.
         </h1>
+        <p className="flex items-center gap-1 text-pretty text-sm text-[var(--foreground)]/75">
+          <MapPin className="inline-block" size={10} />
+          BC, Canada
+        </p>
       </Fade>
 
       <Fade>
@@ -109,7 +113,7 @@ export default function HomePage() {
               imageSrc="/elegantchaos.png"
               title="ElegantChaos"
               description="Tool for visualizing chaotic mathematical systems based on x-y-time equations."
-              date="2024"
+              date="2023"
               tags={["mathematics", "algorithms"]}
               github="https://github.com/farazht/elegantchaos"
               slug="elegant-chaos"
@@ -132,7 +136,7 @@ export default function HomePage() {
           <div className="flex items-center justify-center gap-6 mt-2">
             <a
               href="https://github.com/farazht"
-              target="_blank"
+              target="_blafnk"
               rel="noopener noreferrer"
               className="hover:opacity-70 text-white transition-opacity"
             >

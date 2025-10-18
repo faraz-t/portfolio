@@ -34,12 +34,11 @@ export default function Footer() {
   return (
     <footer className="border-t border-[var(--foreground)]/20 bg-[var(--background)] text-[var(--foreground)] py-4">
       <div className="flex flex-col items-center justify-center w-full px-6 text-sm sm:flex-row sm:items-center sm:justify-between">
-        {/* Copyright - always visible, centered on mobile */}
         <p className="text-center w-full sm:w-auto sm:text-left">
-          © <ClientOnlyYear /> Faraz Tehrani. All rights reserved.
+          © <ClientOnlyYear />. Made with ♥ by Faraz Tehrani.
         </p>
 
-        {/* Right: Text links + divider + power switch (hidden on mobile) */}
+        {/* hidden on mobile */}
         <div className="hidden sm:flex items-center gap-4">
           {/* Links */}
           <div className="flex gap-4">
