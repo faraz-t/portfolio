@@ -39,7 +39,7 @@ body {
   transform: rotateX(0deg) translateZ(12px);
 }
 
-.stardust-text {
+.gradient-text {
   display: inline-block;
   color: transparent;
   -webkit-background-clip: text;

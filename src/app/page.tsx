@@ -8,35 +8,29 @@ export default function HomePage() {
     <main className="mx-auto max-w-4xl px-6 md:px-8 py-16 space-y-12 leading-[1.8]">
       {/* Intro */}
       <Fade>
-        <h1 className="text-6xl leading-tight">
-          Hey, I'm <span className="stardust-text">Faraz</span>.
+        <h1 className="text-4xl sm:text-5xl md:text-6xl leading-tight">
+          Hey, I'm <span className="gradient-text">Faraz</span>.
         </h1>
-        <p className="flex items-center gap-1 text-pretty text-sm text-[var(--foreground)]/75">
+        <p className="flex items-center gap-1 text-pretty text-xs sm:text-sm text-[var(--foreground)]/75">
           <MapPin className="inline-block" size={10} />
           BC, Canada
         </p>
       </Fade>
 
       <Fade>
-        <p className="text-4xl text-[var(--foreground)] leading-10 tracking-[-0.03em] mb-8">
-          I'm a <span className="highlight">student</span> and <span className="highlight">developer</span>, interested in <span className="highlight">full-stack development</span>, <span className="highlight">data</span>, and <span className="highlight">machine learning</span>.
+        <p className="text-lg sm:text-2xl md:text-4xl text-[var(--foreground)] leading-6 sm:leading-10 tracking-[-0.03em] mb-8">
+          I'm a <span className="highlight">student</span> and <span className="highlight">developer</span> studying computer science and data science at <span className="highlight">UBC</span>. My interests lie in <span className="highlight">full-stack development</span>, <span className="highlight">data</span>, and <span className="highlight">machine learning</span>.
         </p>
       </Fade>
 
       <Fade>
-        <p className="text-xl text-[var(--foreground)]/75 leading-7 mb-6">
-          I currently attend the <span className="highlight">University of British Columbia</span>, pursuing a degree in <span className="highlight">Computer Science</span> and <span className="highlight">Data Science</span>.
-        </p>
-      </Fade>
-
-      <Fade>
-        <p className="text-xl text-[var(--foreground)]/75 leading-7 mb-6">
+        <p className="text-base sm:text-lg md:text-xl text-[var(--foreground)]/75 leading-6 sm:leading-7 mb-6">
           I'm also an administrative lead & developer for <span className="highlight">UBC Bionics</span>, where I write full-stack code while leading a team of web devs, financial officers, and sponsorship coordinators. Previously, I did freelance web development for a company that aggregates reviews, and helped them reach a <span className="highlight">300%</span> increase in traffic over a 4-month period.
         </p>
       </Fade>
 
       <Fade>
-        <p className="text-xl text-[var(--foreground)]/75 leading-7 mb-6">
+        <p className="text-base sm:text-lg md:text-xl text-[var(--foreground)]/75 leading-6 sm:leading-7 mb-6">
           I am passionate about building software that is <span className="highlight">simple</span>, <span className="highlight">powerful</span>, and <span className="highlight">elegant</span>. This website is a short collection of some of my recent projects and experiments. I hope you find something interesting!
         </p>
       </Fade>

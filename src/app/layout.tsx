@@ -23,7 +23,7 @@ const stardustFont = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "My Portfolio",
+  title: "Faraz Tehrani",
   description: "Showcasing my projects and skills",
 };
 

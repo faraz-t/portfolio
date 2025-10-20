@@ -32,13 +32,13 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--foreground)]/20 bg-[var(--background)]/25 backdrop-blur-lg text-[var(--foreground)]">
-      <nav className="flex items-center justify-between w-full px-6 py-4">
-        {/* Left side: Name */}
-        <Link href="/" className="text-lg font-semibold hover:opacity-70">
+      <nav className="flex items-center justify-center sm:justify-between w-full px-6 py-4">
+        {/* Left side: Name (hidden on small screens) */}
+        <Link href="/" className="hidden sm:block text-lg font-semibold hover:opacity-70">
           Faraz Tehrani
         </Link>
 
-        {/* Right side: Icons + Divider + Theme toggle */}
+        {/* Right side */}
         <div className="flex items-center gap-4">
           <a href="https://github.com/farazht" target="_blank" rel="noopener noreferrer" className="hover:opacity-70">
             <Github size={20} />
@@ -54,7 +54,7 @@ export default function Header() {
           <div className="h-5 w-px bg-[var(--foreground)]/30" />
 
           {/* Theme toggle */}
-          <button onClick={toggleTheme} aria-label="Toggle theme" className="p-1 hover:opacity-70">
+          <button onClick={toggleTheme} aria-label="Toggle theme" className="hover:opacity-70">
             {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
           </button>
         </div>
