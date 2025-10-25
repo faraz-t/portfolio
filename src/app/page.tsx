@@ -31,7 +31,7 @@ export default function HomePage() {
 
       <Fade>
         <p className="text-base sm:text-lg md:text-xl text-[var(--foreground)]/75 leading-6 sm:leading-7 mb-6">
-          I am passionate about building software that is <span className="highlight">simple</span>, <span className="highlight">powerful</span>, and <span className="highlight">elegant</span>. This website is a short collection of some of my recent projects and experiments. I hope you find something interesting!
+          I am passionate about building software that is <span className="highlight">simple</span>, <span className="highlight">powerful</span>, and <span className="highlight">elegant</span>. This website is a collection of some of my recent projects and experiments. I hope you find something interesting!
         </p>
       </Fade>
 
