@@ -69,7 +69,7 @@ export default function BillBoardPage() {
         <h2 className="text-2xl font-bold">Introduction</h2>
 
         <p>
-            BillBoard was built by me and 4 of my friends at <a className="font-medium text-blue-600 dark:text-blue-400" href="https://hackthechangeyyc.ca/">HackTheChange 2024</a>, a 24-hour hackathon. We recognized several problems with how people engage with their local government:
+            BillBoard was built by me and 4 of my friends at <a className="font-medium text-blue-600 dark:text-blue-400" href="https://hackthechangeyyc.ca/" target="_blank" rel="noopener noreferrer">HackTheChange 2024</a>, a 24-hour hackathon. We recognized several problems with how people engage with their local government:
         </p>
 
         <ul className="list-disc list-inside text-gray-700 dark:text-gray-300">
