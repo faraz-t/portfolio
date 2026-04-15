@@ -1,11 +1,11 @@
 import React from "react";
-import { Github, BookOpen } from "lucide-react";
-import Link from "next/link";
+import { Github } from "lucide-react";
 
 interface ProjectProps {
   imageSrc: string;
   title: string;
   description: string;
+  descriptionBold?: string;
   date?: string;
   tags?: string[];
   github?: string;
@@ -16,6 +16,7 @@ const Project: React.FC<ProjectProps> = ({
   imageSrc,
   title,
   description,
+  descriptionBold,
   date,
   tags = [],
   github,
@@ -48,22 +49,24 @@ const Project: React.FC<ProjectProps> = ({
 
   return (
     <div className="flex flex-col w-full">
-      {slug ? (
-        <Link href={`/projects/${slug}`} className="block focus:outline-none">
+      {github ? (
+        <a href={github} target="_blank" rel="noopener noreferrer" className="block focus:outline-none">
           {imageContent}
-        </Link>
+        </a>
       ) : (
         imageContent
       )}
       <div className="mt-4 flex flex-col gap-2 w-full">
         <div className="flex justify-between items-center">
-          {slug ? (
-            <Link
-              href={`/projects/${slug}`}
+          {github ? (
+            <a
+              href={github}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-large md:text-xl font-semibold text-foreground hover:underline underline-offset-4 transition"
             >
               {title}
-            </Link>
+            </a>
           ) : (
             <h3 className="text-large md:text-xl font-semibold text-foreground">
               {title}
@@ -82,20 +85,15 @@ const Project: React.FC<ProjectProps> = ({
                 <Github className="w-5 h-5" />
               </a>
             )}
-
-            {slug && (
-              <Link
-                href={`/projects/${slug}`}
-                className="flex items-center gap-1 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
-              >
-                <BookOpen className="w-5 h-5" />
-              </Link>
-            )}
           </div>
         </div>
 
         <p className="text-sm leading-5 text-gray-600 dark:text-gray-400">
           {description}
+          {descriptionBold && description && " "}
+          {descriptionBold && (
+            <span className="font-bold">{descriptionBold}</span>
+          )}
         </p>
 
         {/* metadata: tags (left) + date (right) */}

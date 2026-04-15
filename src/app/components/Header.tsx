@@ -40,7 +40,7 @@ export default function Header() {
 
         {/* Right side */}
         <div className="flex items-center gap-4">
-          <a href="https://github.com/farazht" target="_blank" rel="noopener noreferrer" className="hover:opacity-70">
+          <a href="https://github.com/faraz-t" target="_blank" rel="noopener noreferrer" className="hover:opacity-70">
             <Github size={20} />
           </a>
           <a href="https://linkedin.com/in/farazht" target="_blank" rel="noopener noreferrer" className="hover:opacity-70">

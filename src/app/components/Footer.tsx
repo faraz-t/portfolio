@@ -43,7 +43,7 @@ export default function Footer() {
           {/* Links */}
           <div className="flex gap-4">
             <a
-              href="https://github.com/yourusername"
+              href="https://github.com/faraz-t"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:opacity-70"
@@ -51,14 +51,14 @@ export default function Footer() {
               GitHub
             </a>
             <a
-              href="https://linkedin.com/in/yourusername"
+              href="https://linkedin.com/in/farazht"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:opacity-70"
             >
               LinkedIn
             </a>
-            <a href="mailto:youremail@example.com" className="hover:opacity-70">
+            <a href="mailto:tehranifaraz314@gmail.com" className="hover:opacity-70">
               Email
             </a>
           </div>

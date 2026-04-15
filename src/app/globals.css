@@ -28,6 +28,7 @@ body {
 .highlight {
   font-family: var(--font-stardust), serif;
   font-style: italic;
+  letter-spacing: 0.01em;
   text-decoration: underline dotted var(--foreground);
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
