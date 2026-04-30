@@ -123,7 +123,6 @@ export default function Hero() {
         const dist = Math.sqrt(dx * dx + dy * dy);
 
         if (dist < RADIUS) {
-          // Gentle disturbance, not full repulsion
           const normalizedDist = dist / RADIUS;
           const force = Math.exp(-normalizedDist * normalizedDist * 2);
           const angle = Math.atan2(dy, dx);
@@ -132,8 +131,8 @@ export default function Hero() {
           tile.vy += Math.sin(angle) * force * 0.2;
         }
 
-        tile.vx += (tile.homeX - tile.x) * 0.003;
-        tile.vy += (tile.homeY - tile.y) * 0.003;
+        tile.vx += (tile.homeX - tile.x) * 0.001;
+        tile.vy += (tile.homeY - tile.y) * 0.001;
 
         tile.vx *= 0.9;
         tile.vy *= 0.9;

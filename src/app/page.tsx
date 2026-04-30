@@ -1,4 +1,5 @@
 import Hero from "./components/Hero";
+import Introduction from "./components/Introduction";
 import ProjectsGrid from "./components/ProjectsGrid";
 import Showcase from "./components/Showcase";
 import { Github, Linkedin, Mail } from "lucide-react";
@@ -9,6 +10,9 @@ export default function HomePage() {
     <main className="bg-black text-white">
       {/* Hero Section */}
       <Hero />
+
+      {/* Introduction Section */}
+      <Introduction />
 
       {/* Projects Grid Section */}
       <ProjectsGrid />
