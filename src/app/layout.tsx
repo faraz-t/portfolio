@@ -3,7 +3,8 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import MouseGlow from "./components/MouseGlow";
-import { Geist, Playfair_Display } from "next/font/google";
+import { Geist, Playfair_Display, Cormorant_Garamond, Archivo_Black } from "next/font/google";
+
 
 const bodyFont = Geist({
   subsets: ["latin"],
@@ -16,10 +17,22 @@ const specialFont = Playfair_Display({
   variable: "--font-special",
 });
 
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  style: ["italic"],
+  weight: ["400", "500", "600"],
+});
+
 const stardustFont = Playfair_Display({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-stardust",
+});
+
+const archivoBlack = Archivo_Black({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-archivo-black",
 });
 
 export const metadata: Metadata = {
@@ -33,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bodyFont.variable} ${specialFont.variable} ${stardustFont.variable}`}
+      className={`${bodyFont.variable} ${specialFont.variable} ${stardustFont.variable} ${archivoBlack.variable}`}
     >
       <body className="antialiased flex min-h-screen flex-col relative overflow-x-hidden">
         <MouseGlow />
