@@ -122,3 +122,40 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.4);
 }
+
+.custom-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 90px;
+  height: 1px;
+  background: white;
+  outline: none;
+  cursor: pointer;
+}
+
+/* chrome/safari */
+.custom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 8px;
+  height: 14px;
+  background: black;
+  border: 1px solid white;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+/* firefox */
+.custom-slider::-moz-range-thumb {
+  width: 8px;
+  height: 14px;
+  background: black;
+  border: 1px solid white;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.custom-slider::-moz-range-track {
+  height: 1px;
+  background: white;
+}

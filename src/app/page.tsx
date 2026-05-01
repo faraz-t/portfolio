@@ -1,6 +1,6 @@
 import Hero from "./components/Hero";
 import Introduction from "./components/Introduction";
-import ProjectsGrid from "./components/ProjectsGrid";
+import Projects from "./components/Projects";
 import Showcase from "./components/Showcase";
 import { Github, Linkedin, Mail } from "lucide-react";
 import Fade from "./components/Fade";
@@ -8,16 +8,13 @@ import Fade from "./components/Fade";
 export default function HomePage() {
   return (
     <main className="bg-black text-white">
-      {/* Hero Section */}
       <Hero />
 
-      {/* Introduction Section */}
       <Introduction />
 
-      {/* Projects Grid Section */}
-      <ProjectsGrid />
+      <Projects />
 
-      {/* Contact Section */}
+      {/* old Contact Section */}
       <section className="w-full py-20 px-4 sm:px-6 md:px-8 bg-black border-t border-white/10">
         <div className="max-w-2xl mx-auto">
           <Fade>

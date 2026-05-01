@@ -3,8 +3,12 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import MouseGlow from "./components/MouseGlow";
-import { Geist, Playfair_Display, Cormorant_Garamond, Archivo_Black } from "next/font/google";
+import { Geist, Playfair_Display, Cormorant_Garamond, Archivo_Black, Anton} from "next/font/google";
 
+const anton = Anton({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 const bodyFont = Geist({
   subsets: ["latin"],
@@ -48,7 +52,7 @@ export default function RootLayout({
       lang="en"
       className={`${bodyFont.variable} ${specialFont.variable} ${stardustFont.variable} ${archivoBlack.variable}`}
     >
-      <body className="antialiased flex min-h-screen flex-col relative overflow-x-hidden">
+      <body className="antialiased flex min-h-screen flex-col relative overflow-x-hidden" suppressHydrationWarning>
         <MouseGlow />
         <Header />
         <main className="flex-1">{children}</main>
