@@ -2,6 +2,7 @@ import Hero from "./components/Hero";
 import Introduction from "./components/Introduction";
 import Projects from "./components/Projects";
 import Showcase from "./components/Showcase";
+import About from "./components/About";
 import { Github, Linkedin, Mail } from "lucide-react";
 import Fade from "./components/Fade";
 
@@ -13,6 +14,8 @@ export default function HomePage() {
       <Introduction />
 
       <Projects />
+
+      <About />
 
       {/* old Contact Section */}
       <section className="w-full py-20 px-4 sm:px-6 md:px-8 bg-black border-t border-white/10">

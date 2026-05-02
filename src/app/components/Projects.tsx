@@ -342,7 +342,7 @@ export default function Projects() {
     <section className="w-full px-4 sm:px-6 md:px-8 py-20 bg-black">
       <div className="max-w-[1800px] mx-auto grid grid-cols-1 lg:grid-cols-[0.85fr_2fr] gap-10 lg:gap-14">
         <Fade>
-          <div className="lg:sticky lg:top-28 h-fit pt-4 sm:pt-5 flex flex-col items-start">
+          <div className="lg:sticky lg:top-28 h-fit pt-4 sm:pt-5 flex flex-col items-start lg:items-center">
             <div className="relative inline-block">
               <h2
                 style={{ fontFamily: "Anton, sans-serif" }}
@@ -352,6 +352,7 @@ export default function Projects() {
                   tracking-wide
                   text-white
                   uppercase
+                  lg:text-center
                 "
               >
                 Projects
@@ -360,7 +361,7 @@ export default function Projects() {
               <span
                 className="
                   absolute
-                  left-[35%]
+                  left-[48%]
                   top-[93%]
                   text-xl sm:text-2xl md:text-3xl
                   italic lowercase
@@ -378,7 +379,7 @@ export default function Projects() {
                     "0 0 1px rgba(255,255,255,0.95), 1px 1px 0 rgba(255,255,255,0.7)",
                 }}
               >
-                (hover for more info)
+                (hover to reveal)
               </span>
             </div>
 
