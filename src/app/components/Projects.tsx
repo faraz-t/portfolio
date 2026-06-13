@@ -45,6 +45,21 @@ const projectItems: ProjectIndexItem[] = [
     link: "https://speedstats.vercel.app/",
   },
   {
+    year: "2026",
+    name: "PORTFOLIO",
+    description: (
+      <>
+        personal portfolio website built with{" "}
+        <span className="font-semibold text-white">next.js</span>,{" "}
+        <span className="font-semibold text-white">tailwind css</span>, and
+        vercel for deployment.
+      </>
+    ),
+    tags: ["web", "graphic-design", "ui-ux"],
+    image: "/projects/portfolio.png",
+    link: "https://github.com/faraz-t/portfolio",
+  },
+  {
     year: "2025",
     name: "NEURAL NET",
     description: (
@@ -73,21 +88,6 @@ const projectItems: ProjectIndexItem[] = [
     tags: ["full-stack", "relational-database", "ai"],
     image: "/projects/billboard.png",
     link: "https://github.com/faraz-t/BillBoard",
-  },
-  {
-    year: "2025",
-    name: "PORTFOLIO",
-    description: (
-      <>
-        personal portfolio website built with{" "}
-        <span className="font-semibold text-white">next.js</span>,{" "}
-        <span className="font-semibold text-white">tailwind css</span>, and
-        vercel for deployment.
-      </>
-    ),
-    tags: ["web", "graphic-design", "ui-ux"],
-    image: "/projects/portfolio.png",
-    link: "https://github.com/faraz-t/portfolio",
   },
   {
     year: "2024",
@@ -339,7 +339,7 @@ function ProjectRow({
 
 export default function Projects() {
   return (
-    <section className="w-full px-4 sm:px-6 md:px-8 py-20 bg-black">
+    <section id="projects" className="w-full px-4 sm:px-6 md:px-8 py-20 bg-black scroll-mt-24">
       <div className="max-w-[1800px] mx-auto grid grid-cols-1 lg:grid-cols-[0.85fr_2fr] gap-10 lg:gap-14">
         <Fade>
           <div className="lg:sticky lg:top-28 h-fit pt-4 sm:pt-5 flex flex-col items-start lg:items-center">

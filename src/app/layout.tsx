@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
+// import Footer from "./components/Footer";
 import MouseGlow from "./components/MouseGlow";
 import { Geist, Playfair_Display, Cormorant_Garamond, Archivo_Black, Anton} from "next/font/google";
 
@@ -56,7 +56,6 @@ export default function RootLayout({
         <MouseGlow />
         <Header />
         <main className="flex-1">{children}</main>
-        <Footer />
       </body>
     </html>
   );

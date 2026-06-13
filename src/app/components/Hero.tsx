@@ -234,7 +234,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-black">
+    <section id="home" className="relative h-screen w-full overflow-hidden bg-black scroll-mt-24">
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
 
       <div

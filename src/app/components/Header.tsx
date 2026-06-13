@@ -1,16 +1,44 @@
 "use client";
 
 import Link from "next/link";
-import { MapPin } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export default function Header() {
+  const [elapsedTime, setElapsedTime] = useState("00:00:000");
+  const [startTime] = useState(Date.now());
+  const [currentDate, setCurrentDate] = useState("");
+
+  useEffect(() => {
+    // Set initial date
+    const date = new Date();
+    const monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
+      "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
+    setCurrentDate(`${monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`);
+
+    // Timer interval
+    const interval = setInterval(() => {
+      const now = Date.now();
+      const elapsed = now - startTime;
+      
+      const totalSeconds = Math.floor(elapsed / 1000);
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      const milliseconds = elapsed % 1000;
+      
+      const formatted = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}:${String(milliseconds).padStart(3, "0")}`;
+      setElapsedTime(formatted);
+    }, 10);
+
+    return () => clearInterval(interval);
+  }, [startTime]);
+
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-black/25 backdrop-blur-lg text-white">
       <nav className="relative flex items-center justify-between w-full px-6 py-4">
-        {/* Left side: Location */}
-        <div className="flex items-center gap-1 text-xs font-medium tracking-wide text-white/80 hover:text-white transition-colors">
-          <MapPin size={14} />
-          <span>BC, CANADA</span>
+        {/* Left side: Date and Timer */}
+        <div className="flex items-center gap-8 text-xs font-medium tracking-wide text-white/80">
+          <span>{currentDate}</span>
+          {/* <span>ELAPSED {elapsedTime}</span> */}
         </div>
 
         {/* Center: Name - positioned absolutely to ensure true centering */}
@@ -22,7 +50,7 @@ export default function Header() {
         </Link>
 
         {/* Right side: Links */}
-        <div className="flex items-center gap-6 ml-auto">
+        <div className="flex items-center gap-8 ml-auto">
           <a
             href="https://github.com/faraz-t"
             target="_blank"
