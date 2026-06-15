@@ -16,30 +16,12 @@ export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const tilesRef = useRef<Tile[]>([]);
   const mouseRef = useRef({ x: -9999, y: -9999 });
-  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const [dividerY, setDividerY] = useState(300);
 
   const [repulsion, setRepulsion] = useState(0.3);
   const [attraction, setAttraction] = useState(0.002);
-  const [musicOn, setMusicOn] = useState(false);
-
-  useEffect(() => {
-    audioRef.current = new Audio("/music.mp3");
-    audioRef.current.loop = true;
-    audioRef.current.volume = 0.5;
-  }, []);
-
-  useEffect(() => {
-    if (!audioRef.current) return;
-
-    if (musicOn) {
-      audioRef.current.play().catch(() => {});
-    } else {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-    }
-  }, [musicOn]);
+  const [tileSize, setTileSize] = useState(6);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -53,18 +35,12 @@ export default function Hero() {
 
     let animationFrame: number;
     let dpr = window.devicePixelRatio || 1;
-    let tileSize = 4;
 
     const RADIUS = 110;
     const SWIRL = 0.14;
 
-    const getTileSize = () => {
-      return Math.max(2, Math.min(6, Math.floor(window.innerWidth / 350)));
-    };
-
     const resize = () => {
       dpr = window.devicePixelRatio || 1;
-      tileSize = getTileSize();
 
       canvas.width = window.innerWidth * dpr;
       canvas.height = canvas.offsetHeight * dpr;
@@ -227,7 +203,7 @@ export default function Hero() {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, [repulsion, attraction]);
+  }, [repulsion, attraction, tileSize]);
 
   const handleScroll = () => {
     window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
@@ -258,28 +234,22 @@ export default function Hero() {
           </div>
 
           <div className="flex items-center gap-3">
-            <span>Play Music?</span>
+            <span>Tile Size</span>
 
-            <button
-              onClick={() => setMusicOn(true)}
-              className={`px-2 py-[2px] ${
-                musicOn ? "border border-white" : ""
-              }`}
-            >
-              YES
-            </button>
-
-            <button
-              onClick={() => setMusicOn(false)}
-              className={`px-2 py-[2px] ${
-                !musicOn ? "border border-white" : ""
-              }`}
-            >
-              NO
-            </button>
+            <input
+              type="range"
+              min="6"
+              max="16"
+              step="1"
+              value={tileSize}
+              onChange={(e) => setTileSize(Number(e.target.value))}
+              className="custom-slider"
+            />
           </div>
 
           <div className="flex items-center gap-3">
+            <span>Attraction</span>
+
             <input
               type="range"
               min="0.0005"
@@ -289,7 +259,6 @@ export default function Hero() {
               onChange={(e) => setAttraction(Number(e.target.value))}
               className="custom-slider"
             />
-            <span>Attraction</span>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Fade from "./Fade";
 
 interface ProjectIndexItem {
@@ -18,8 +18,8 @@ const projectItems: ProjectIndexItem[] = [
     name: "WITNESS",
     description: (
       <>
-        mobile app to create study groups focused on social accountability.
-        ranked <span className="font-semibold text-white">1st place</span> by
+        Mobile app to create study groups focused on social accountability.
+        Ranked <span className="font-semibold text-white">1st place</span> by
         judges at a project demo showcase.
       </>
     ),
@@ -32,8 +32,8 @@ const projectItems: ProjectIndexItem[] = [
     name: "SPEEDSTATS",
     description: (
       <>
-        web app that displays extensive real-time stats from a minecraft
-        speedrunning api. currently used by{" "}
+        Web app that displays extensive real-time stats from a minecraft
+        speedrunning api. Currently used by{" "}
         <span className="font-semibold text-white">
           1500+ monthly users
         </span>
@@ -49,7 +49,7 @@ const projectItems: ProjectIndexItem[] = [
     name: "PORTFOLIO",
     description: (
       <>
-        personal portfolio website built with{" "}
+        Personal portfolio website built with{" "}
         <span className="font-semibold text-white">next.js</span>,{" "}
         <span className="font-semibold text-white">tailwind css</span>, and
         vercel for deployment.
@@ -64,7 +64,7 @@ const projectItems: ProjectIndexItem[] = [
     name: "NEURAL NET",
     description: (
       <>
-        artificial neural network implemented from scratch in{" "}
+        Artificial neural network implemented from scratch in{" "}
         <span className="font-semibold text-white">c++</span> to achieve{" "}
         <span className="font-semibold text-white">97% accuracy</span> on image
         classification.
@@ -79,8 +79,8 @@ const projectItems: ProjectIndexItem[] = [
     name: "BILLBOARD",
     description: (
       <>
-        full-stack policy discussion platform with forums, petitions, polls,
-        maps, ai integration, and more. placed{" "}
+        Full-stack policy discussion platform with forums, petitions, polls,
+        maps, ai integration, and more. Placed{" "}
         <span className="font-semibold text-white">top 10</span> @
         hackthechange.
       </>
@@ -94,7 +94,7 @@ const projectItems: ProjectIndexItem[] = [
     name: "INSIGHTUBC",
     description: (
       <>
-        full-stack application using a{" "}
+        Full-stack application using a{" "}
         <span className="font-semibold text-white">restful api</span> to query
         class section datasets and display comprehensive insights.
       </>
@@ -107,8 +107,8 @@ const projectItems: ProjectIndexItem[] = [
     name: "IMMUNEIT",
     description: (
       <>
-        cybersecurity system designed for growing canadian businesses in
-        healthcare. placed{" "}
+        Cybersecurity system designed for growing canadian businesses in
+        healthcare. Placed{" "}
         <span className="font-semibold text-white">top 10</span> @ produhacks.
       </>
     ),
@@ -121,11 +121,11 @@ const projectItems: ProjectIndexItem[] = [
     name: "HEART DISEASE",
     description: (
       <>
-        comparing the efficacy of{" "}
+        Comparing the efficacy of{" "}
         <span className="font-semibold text-white">
           4 classification models
         </span>{" "}
-        in predicting coronary heart disease. built @ cpl hackathon.
+        in predicting coronary heart disease. Built @ cpl hackathon.
       </>
     ),
     tags: ["statistics", "data-viz", "machine-learning"],
@@ -137,7 +137,7 @@ const projectItems: ProjectIndexItem[] = [
     name: "ELEGANTCHAOS",
     description: (
       <>
-        tool for visualizing{" "}
+        Tool for visualizing{" "}
         <span className="font-semibold text-white">
           chaotic mathematical systems
         </span>{" "}
@@ -150,7 +150,7 @@ const projectItems: ProjectIndexItem[] = [
   },
 ];
 
-function AnimatedTitle({ text }: { text: string }) {
+function AnimatedTitle({ text, isActive }: { text: string; isActive: boolean }) {
   const letters = text.split("");
 
   return (
@@ -161,14 +161,14 @@ function AnimatedTitle({ text }: { text: string }) {
             key={`top-${i}`}
             style={{
               fontFamily: "Anton, sans-serif",
-              transitionDelay: `${i * 18}ms`,
+              transitionDelay: `${i * 12}ms`,
             }}
-            className="
+            className={`
               inline-block whitespace-pre
               transition-transform duration-500
               ease-[cubic-bezier(0.76,0,0.24,1)]
-              group-hover:-translate-y-full
-            "
+              ${isActive ? "-translate-y-full" : "translate-y-0"}
+            `}
           >
             {letter === " " ? "\u00A0" : letter}
           </span>
@@ -181,14 +181,14 @@ function AnimatedTitle({ text }: { text: string }) {
             key={`bottom-${i}`}
             style={{
               fontFamily: "Anton, sans-serif",
-              transitionDelay: `${i * 18}ms`,
+              transitionDelay: `${i * 12}ms`,
             }}
-            className="
+            className={`
               inline-block whitespace-pre
               transition-transform duration-500
               ease-[cubic-bezier(0.76,0,0.24,1)]
-              group-hover:-translate-y-full
-            "
+              ${isActive ? "-translate-y-full" : "translate-y-0"}
+            `}
           >
             {letter === " " ? "\u00A0" : letter}
           </span>
@@ -198,207 +198,168 @@ function AnimatedTitle({ text }: { text: string }) {
   );
 }
 
-function ProjectRow({
-  item,
-  delay,
-}: {
-  item: ProjectIndexItem;
-  delay: number;
-}) {
-  const [hovered, setHovered] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  const rowRef = useRef<HTMLDivElement | null>(null);
-  const targetRef = useRef({ x: 0, y: 0 });
+export default function Projects() {
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!hovered) return;
-
-    let frame = 0;
-
-    const animate = () => {
-      setPosition((prev) => ({
-        x: prev.x + (targetRef.current.x - prev.x) * 0.08,
-        y: prev.y + (targetRef.current.y - prev.y) * 0.08,
-      }));
-
-      frame = requestAnimationFrame(animate);
+    const observerOptions = {
+      root: null,
+      rootMargin: "-50% 0px -50% 0px",
+      threshold: 0,
     };
 
-    frame = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(frame);
-  }, [hovered]);
-
-  const updateTarget = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = rowRef.current?.getBoundingClientRect();
-    if (!rect) return;
-
-    targetRef.current = {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
+    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const index = Number(entry.target.getAttribute("data-index"));
+          if (!isNaN(index)) {
+            setActiveIndex(index);
+          }
+        }
+      });
     };
-  };
 
-  const handleClick = () => {
-    if (!item.link) return;
-    window.open(item.link, "_blank", "noopener,noreferrer");
+    const observer = new IntersectionObserver(handleIntersection, observerOptions);
+    const elements = scrollContainerRef.current?.querySelectorAll("[data-project-trigger]");
+    
+    elements?.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  const activeProject = projectItems[activeIndex];
+
+  const handleActiveProjectClick = () => {
+    if (activeProject?.link) {
+      window.open(activeProject.link, "_blank", "noopener,noreferrer");
+    }
   };
 
   return (
-    <Fade delay={delay}>
-      <div
-        ref={rowRef}
-        onClick={handleClick}
-        onMouseEnter={(e) => {
-          updateTarget(e);
-          setPosition(targetRef.current);
-          setHovered(true);
-        }}
-        onMouseMove={updateTarget}
-        onMouseLeave={() => setHovered(false)}
-        className="group relative py-5 cursor-pointer"
+    <section id="projects" className="w-full px-4 sm:px-6 md:px-8 bg-black relative">
+      
+      {/* DESKTOP VIEW: Asymmetric layout breakdown configuration (1/3 Left, 2/3 Right) */}
+      <div 
+        ref={scrollContainerRef} 
+        className="hidden lg:grid grid-cols-[1fr_2fr] gap-14 items-start relative max-w-[1800px] mx-auto"
+        style={{ height: `${projectItems.length * 85}vh` }}
       >
-        <div
-          className="pointer-events-none absolute inset-0 z-0 overflow-visible transition-opacity duration-300"
-          style={{ opacity: hovered ? 1 : 0 }}
-        >
-          <div
-            className="absolute left-0 top-0"
-            style={{
-              transform: `translate(${position.x - 180}px, ${
-                position.y - 140
-              }px) rotate(${(position.x - 180) * 0.015}deg)`,
-            }}
-          >
-            <div className="w-72 sm:w-80 md:w-96 lg:w-[28rem] overflow-hidden shadow-2xl ring-1 ring-white/10">
-              <img
-                src={item.image}
-                alt=""
-                className="block w-full h-auto object-cover opacity-90"
-              />
-            </div>
+        
+        {/* Left Column Layout Panel Area (Sticky) */}
+        <div className="sticky top-16 flex flex-col z-20 pointer-events-none">
+          {/* Top Right Header Text Anchor Alignment Block */}
+          <div className="w-full text-right pointer-events-auto pr-2 mb-28">
+            <span className="text-[10px] uppercase tracking-[0.2em] text-white/30 font-mono">
+              selected works
+            </span>
+          </div>
+
+          {/* Project Navigation Item List Section */}
+          <div className="flex flex-col gap-3 py-1">
+            {projectItems.map((item, index) => {
+              const isActive = index === activeIndex;
+              return (
+                <div
+                  key={index}
+                  onClick={() => {
+                    const target = document.querySelector(`[data-index="${index}"]`);
+                    target?.scrollIntoView({ behavior: "smooth", block: "center" });
+                  }}
+                  className="group relative py-1 cursor-pointer transition-opacity duration-300 pointer-events-auto"
+                  style={{ opacity: isActive ? 1 : 0.12 }}
+                >
+                  <h3 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl uppercase text-white tracking-wide">
+                    <AnimatedTitle text={item.name} isActive={isActive} />
+                  </h3>
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        <div className="relative z-10">
-          <div className="flex items-start gap-3">
-            <span
-              style={{ fontFamily: "Anton, sans-serif" }}
-              className="
-                text-xs sm:text-sm tracking-wider
-                text-white/40
-                transition-colors duration-300
-                group-hover:text-white
-              "
-            >
-              {item.year}
-            </span>
+        {/* Right Column Editorial Preview Area (Sticky) */}
+        <div 
+          className="sticky top-16 flex flex-col z-20 cursor-pointer pointer-events-auto"
+          onClick={handleActiveProjectClick}
+        >
+          {activeProject && (
+            <div className="w-full flex flex-col gap-2">
+              {/* Static Image Canvas */}
+              <div className="w-full overflow-hidden bg-zinc-950 aspect-[16/10]">
+                <img
+                  src={activeProject.image}
+                  alt={activeProject.name}
+                  className="block w-full h-full object-cover opacity-90 transition-all duration-500"
+                />
+              </div>
 
-            <div className="flex-1 min-w-0">
-              <h3
-                className="
-                  text-[2.2rem]
-                  sm:text-[3.2rem]
-                  md:text-[4.5rem]
-                  lg:text-[5.5rem]
-                  xl:text-[6.2rem]
-                  uppercase
-                  text-white
-                "
-              >
-                <AnimatedTitle text={item.name} />
-              </h3>
+              {/* Swiss Layout Typography Grid — Set tighter to the image above */}
+              <div className="grid grid-cols-[1.2fr_2fr_0.5fr] gap-6 pt-0.5 text-xs tracking-tight text-white/60 font-sans">
+                
+                {/* Column One: Name + Tag list */}
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-white font-medium uppercase tracking-wider text-[13px]">
+                    {activeProject.name}
+                  </span>
+                  <span className="lowercase italic text-white/40 text-[12px]">
+                    {activeProject.tags.join(" / ")}
+                  </span>
+                </div>
 
-              <div
-                className={`
-                  overflow-hidden transition-all duration-500
-                  ease-[cubic-bezier(0.76,0,0.24,1)]
-                  ${
-                    hovered
-                      ? "max-h-40 opacity-100 mt-3"
-                      : "max-h-0 opacity-0 mt-0"
-                  }
-                `}
-              >
-                <p className="max-w-2xl text-sm sm:text-base text-white/80 lowercase leading-relaxed">
-                  {item.description}
-                </p>
+                {/* Column Two: Center Narrative Text Block */}
+                <div>
+                  <p className="leading-relaxed text-white/80 text-[13px] max-w-sm normal-case">
+                    {activeProject.description}
+                  </p>
+                </div>
 
-                <p className="mt-2 text-sm sm:text-base text-white/70 lowercase leading-relaxed">
-                  <span className="italic">tags:</span>{" "}
-                  <span className="italic">{item.tags.join(" / ")}</span>
-                </p>
+                {/* Column Three: End Right Year Anchor */}
+                <div className="text-right">
+                  <span className="text-white font-medium text-[13px]">
+                    {activeProject.year}
+                  </span>
+                </div>
+
               </div>
             </div>
-          </div>
+          )}
         </div>
-      </div>
-    </Fade>
-  );
-}
 
-export default function Projects() {
-  return (
-    <section id="projects" className="w-full px-4 sm:px-6 md:px-8 py-20 bg-black scroll-mt-24">
-      <div className="max-w-[1800px] mx-auto grid grid-cols-1 lg:grid-cols-[0.85fr_2fr] gap-10 lg:gap-14">
-        <Fade>
-          <div className="lg:sticky lg:top-28 h-fit pt-4 sm:pt-5 flex flex-col items-start lg:items-center">
-            <div className="relative inline-block">
-              <h2
-                style={{ fontFamily: "Anton, sans-serif" }}
-                className="
-                  text-5xl sm:text-6xl md:text-7xl lg:text-8xl
-                  leading-[0.9]
-                  tracking-wide
-                  text-white
-                  uppercase
-                  lg:text-center
-                "
-              >
-                Projects
-              </h2>
-
-              <span
-                className="
-                  absolute
-                  left-[48%]
-                  top-[93%]
-                  text-xl sm:text-2xl md:text-3xl
-                  italic lowercase
-                  tracking-tight
-                  text-black
-                  whitespace-nowrap
-                  pointer-events-none
-                  z-20
-                  select-none
-                "
-                style={{
-                  fontFamily: '"Times New Roman", Georgia, serif',
-                  WebkitTextStroke: "0.6px rgba(255,255,255,0.9)",
-                  textShadow:
-                    "0 0 1px rgba(255,255,255,0.95), 1px 1px 0 rgba(255,255,255,0.7)",
-                }}
-              >
-                (hover to reveal)
-              </span>
-            </div>
-
-            <div className="mt-16 w-full max-w-[320px] opacity-90 mix-blend-screen">
-              <img
-                src="/dither3.png"
-                alt="artwork"
-                className="w-full h-auto object-contain"
-              />
-            </div>
-          </div>
-        </Fade>
-
-        <div>
-          {projectItems.map((item, index) => (
-            <ProjectRow key={index} item={item} delay={index * 0.05} />
+        {/* Scroll Processing Anchor Tracks */}
+        <div className="absolute inset-0 flex flex-col pointer-events-none z-10">
+          {projectItems.map((_, index) => (
+            <div
+              key={index}
+              data-project-trigger
+              data-index={index}
+              className="flex-1 w-full"
+            />
           ))}
         </div>
+
       </div>
+
+      {/* MOBILE ALTERNATIVE VIEW LAYOUT: Clean stacked fallback layout structural grid logic */}
+      <div className="w-full lg:hidden block py-10 max-w-[1800px] mx-auto">
+        {projectItems.map((item, index) => (
+          <div 
+            key={index}
+            onClick={() => item.link && window.open(item.link, "_blank")}
+            className="py-8 border-b border-white/10 flex flex-col gap-4"
+          >
+            <div className="flex justify-between items-baseline">
+              <h3 className="text-xl uppercase text-white font-semibold font-mono tracking-wide">{item.name}</h3>
+              <span className="text-white/40 text-xs">{item.year}</span>
+            </div>
+            <div className="w-full overflow-hidden bg-zinc-950 aspect-[16/10]">
+              <img src={item.image} alt={item.name} className="w-full h-full object-cover opacity-80" />
+            </div>
+            <p className="text-white/80 text-sm leading-relaxed">{item.description}</p>
+            <span className="lowercase italic text-white/40 text-xs">{item.tags.join(" / ")}</span>
+          </div>
+        ))}
+      </div>
+
     </section>
   );
 }

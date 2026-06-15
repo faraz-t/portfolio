@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
+// @ts-ignore
 import "./globals.css";
 import Header from "./components/Header";
-// import Footer from "./components/Footer";
-import MouseGlow from "./components/MouseGlow";
 import { Geist, Playfair_Display, Cormorant_Garamond, Archivo_Black, Anton} from "next/font/google";
 
 const anton = Anton({
@@ -53,7 +52,6 @@ export default function RootLayout({
       className={`${bodyFont.variable} ${specialFont.variable} ${stardustFont.variable} ${archivoBlack.variable}`}
     >
       <body className="antialiased flex min-h-screen flex-col relative overflow-x-hidden" suppressHydrationWarning>
-        <MouseGlow />
         <Header />
         <main className="flex-1">{children}</main>
       </body>
