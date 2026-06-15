@@ -9,13 +9,11 @@ export default function Header() {
   const [currentDate, setCurrentDate] = useState("");
 
   useEffect(() => {
-    // Set initial date
     const date = new Date();
     const monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
       "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
     setCurrentDate(`${monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`);
 
-    // Timer interval
     const interval = setInterval(() => {
       const now = Date.now();
       const elapsed = now - startTime;
@@ -35,13 +33,11 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-black/25 backdrop-blur-lg text-white">
       <nav className="relative flex items-center justify-between w-full px-6 py-4">
-        {/* Left side: Date and Timer */}
-        <div className="flex items-center gap-8 text-xs font-medium tracking-wide text-white/80">
+        
+        <div className="invisible md:visible flex items-center gap-8 text-xs font-medium tracking-wide text-white/80">
           <span>{currentDate}</span>
-          {/* <span>ELAPSED {elapsedTime}</span> */}
         </div>
 
-        {/* Center: Name - positioned absolutely to ensure true centering */}
         <Link
           href="/"
           className="absolute left-1/2 -translate-x-1/2 text-xs font-medium tracking-wide text-white/80 hover:text-white transition-colors whitespace-nowrap"
@@ -49,8 +45,7 @@ export default function Header() {
           FARAZ TEHRANI
         </Link>
 
-        {/* Right side: Links */}
-        <div className="flex items-center gap-8 ml-auto">
+        <div className="invisible md:visible flex items-center gap-8 ml-auto">
           <a
             href="https://github.com/faraz-t"
             target="_blank"

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "./components/Header";
 import { Geist, Playfair_Display, Cormorant_Garamond, Archivo_Black, Anton} from "next/font/google";
+import MouseGlow from "./components/MouseGlow";
 
 const anton = Anton({
   subsets: ["latin"],
@@ -54,6 +55,7 @@ export default function RootLayout({
       <body className="antialiased flex min-h-screen flex-col relative overflow-x-hidden" suppressHydrationWarning>
         <Header />
         <main className="flex-1">{children}</main>
+        <MouseGlow />
       </body>
     </html>
   );

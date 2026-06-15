@@ -16,7 +16,6 @@ const GlowingImage: React.FC<GlowingImageProps> = ({
 }) => {
   return (
     <div className={`relative w-full ${height} rounded-xl overflow-visible group`}>
-      {/* Glow background */}
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 blur-[120px] scale-[1.2] opacity-80 rounded-xl w-full h-full"
         style={{
@@ -27,10 +26,8 @@ const GlowingImage: React.FC<GlowingImageProps> = ({
         }}
       ></div>
 
-      {/* white outline */}
       <div className="absolute inset-0 rounded-xl pointer-events-none transition ring-2 ring-primary/60 opacity-0 group-hover:opacity-100"></div>
 
-      {/* Main image */}
       <Image
         src={src}
         alt={alt}

@@ -1,228 +1,313 @@
 "use client";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-const PIXEL_SIZE = 14;
-const SPEED_SCALE = 0.5;
-
-interface Pixel {
+type Tile = {
   x: number;
   y: number;
-  row: number;
-  col: number;
-  baseDensity: number;
-  phase: number;
-  speed: number;
-  t: number;
-}
-
-function PixelTransition() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animRef = useRef<number>(0);
-  const pixelsRef = useRef<Pixel[]>([]);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    function initPixels(cols: number, rows: number) {
-      const px: Pixel[] = [];
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          const rowFraction = r / Math.max(rows - 1, 1);
-          px.push({
-            x: c * PIXEL_SIZE,
-            y: r * PIXEL_SIZE,
-            row: r,
-            col: c,
-            baseDensity: rowFraction,
-            phase: Math.random() * Math.PI * 2,
-            speed: (0.008 + Math.random() * 0.014) * SPEED_SCALE,
-            t: Math.random() * 100,
-          });
-        }
-      }
-      pixelsRef.current = px;
-    }
-
-    function resize() {
-      const w = canvas!.offsetWidth;
-      const h = canvas!.offsetHeight;
-      canvas!.width = w;
-      canvas!.height = h;
-      initPixels(Math.ceil(w / PIXEL_SIZE), Math.ceil(h / PIXEL_SIZE));
-    }
-
-    function draw() {
-      if (!canvas || !ctx) return;
-
-      ctx.fillStyle = "white";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      for (const px of pixelsRef.current) {
-        px.t += px.speed;
-
-        const wave = Math.sin(px.t + px.phase) * 0.5 + 0.5;
-        const noise =
-          Math.sin(px.t * 1.7 + px.col * 0.31 + px.row * 0.15) * 0.5 + 0.5;
-
-        const combined = wave * 0.55 + noise * 0.45;
-
-        if (combined < px.baseDensity) {
-          ctx.fillStyle = "#0d0d0d";
-          ctx.fillRect(px.x, px.y, PIXEL_SIZE, PIXEL_SIZE);
-        }
-      }
-
-      animRef.current = requestAnimationFrame(draw);
-    }
-
-    resize();
-    animRef.current = requestAnimationFrame(draw);
-
-    const observer = new ResizeObserver(() => {
-      cancelAnimationFrame(animRef.current);
-      resize();
-      animRef.current = requestAnimationFrame(draw);
-    });
-
-    observer.observe(canvas);
-
-    return () => {
-      cancelAnimationFrame(animRef.current);
-      observer.disconnect();
-    };
-  }, []);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="block w-full pointer-events-none"
-      style={{ height: "63vh", imageRendering: "pixelated" }}
-    />
-  );
-}
+  homeX: number;
+  homeY: number;
+  vx: number;
+  vy: number;
+  size: number;
+};
 
 export default function Footer() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const tilesRef = useRef<Tile[]>([]);
+  const mouseRef = useRef({ x: -9999, y: -9999 });
+
+  const repulsionRef = useRef(0.3);
+  const attractionRef = useRef(0.002);
+  const tileSizeRef = useRef(6);
+  const colorRef = useRef(0);
+  const hueRef = useRef(0);
+
+  const repulsionInputRef = useRef<HTMLInputElement>(null);
+  const attractionInputRef = useRef<HTMLInputElement>(null);
+  const tileSizeInputRef = useRef<HTMLInputElement>(null);
+  const colorInputRef = useRef<HTMLInputElement>(null);
+
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const onResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    onResize();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  useEffect(() => {
+    // If we're on mobile or still detecting, don't spin up the heavy canvas logic
+    if (isMobile === null || isMobile) return;
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    if (!ctx) return;
+
+    let animationFrame: number;
+    let dpr = window.devicePixelRatio || 1;
+
+    const RADIUS = 110;
+    const SWIRL = 0.14;
+    const currentYear = new Date().getFullYear();
+    const TEXT = `faraz.me ©${currentYear}`;
+
+    const getTileColor = (): string => {
+      const t = colorRef.current;
+      if (t <= 0.02) return "#ffffff";
+      const hue = hueRef.current;
+      const saturation = 100;
+      const lightness = 98 - t * 20;
+      return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+    };
+
+    const buildTextTiles = () => {
+      tilesRef.current = [];
+      const tileSize = tileSizeRef.current;
+      const width = window.innerWidth;
+      const height = canvas.offsetHeight;
+
+      ctx.clearRect(0, 0, width, height);
+
+      const targetWidth = width * 0.96;
+      let fontSize = 320;
+      ctx.font = `400 ${fontSize}px Anton`;
+      fontSize = (targetWidth / ctx.measureText(TEXT).width) * fontSize;
+      ctx.font = `400 ${fontSize}px Anton`;
+
+      const metrics = ctx.measureText(TEXT);
+      const textHeight =
+        metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+      const BOTTOM_PAD = 60;
+      const textY = height - textHeight - BOTTOM_PAD;
+
+      ctx.textAlign = "center";
+      ctx.textBaseline = "top";
+      ctx.fillStyle = "white";
+      ctx.fillText(TEXT, width / 2, textY);
+
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const { data, width: imgWidth, height: imgHeight } = imageData;
+
+      for (let y = 0; y < imgHeight; y += tileSize * dpr) {
+        for (let x = 0; x < imgWidth; x += tileSize * dpr) {
+          const index = (y * imgWidth + x) * 4;
+          if (data[index + 3] > 128) {
+            const cssX = x / dpr;
+            const cssY = y / dpr;
+            tilesRef.current.push({
+              x: cssX,
+              y: cssY,
+              homeX: cssX,
+              homeY: cssY,
+              vx: 0,
+              vy: 0,
+              size: tileSize,
+            });
+          }
+        }
+      }
+    };
+
+    const resize = () => {
+      dpr = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = canvas.offsetHeight * dpr;
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${canvas.offsetHeight}px`;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+      buildTextTiles();
+    };
+
+    const animate = (now: number) => {
+      const repulsion = repulsionRef.current;
+      const attraction = attractionRef.current;
+      const width = window.innerWidth;
+      const time = now * 0.001;
+
+      ctx.clearRect(0, 0, width, canvas.offsetHeight);
+      ctx.fillStyle = "black";
+      ctx.fillRect(0, 0, width, canvas.offsetHeight);
+
+      const mouseX = mouseRef.current.x;
+      const mouseY = mouseRef.current.y;
+
+      ctx.fillStyle = getTileColor();
+
+      for (const tile of tilesRef.current) {
+        tile.vx += (tile.homeX - tile.x) * attraction;
+        tile.vy += (tile.homeY - tile.y) * attraction;
+
+        const dx = tile.x - mouseX;
+        const dy = tile.y - mouseY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < RADIUS) {
+          const falloff = 1 - dist / RADIUS;
+          const force = falloff * falloff;
+          const angle = Math.atan2(dy, dx);
+
+          const radial = repulsion * 5.5 * force;
+          const tangential = SWIRL * force;
+
+          tile.vx += Math.cos(angle) * radial - Math.sin(angle) * tangential;
+          tile.vy += Math.sin(angle) * radial + Math.cos(angle) * tangential;
+
+          const ripple = Math.sin(falloff * Math.PI * 6 - time * 8) * force;
+          tile.vx += (dx / (dist || 1)) * ripple * 0.08;
+          tile.vy += (dy / (dist || 1)) * ripple * 0.08;
+        }
+
+        tile.vx *= 0.88;
+        tile.vy *= 0.88;
+        tile.x += tile.vx;
+        tile.y += tile.vy;
+
+        const speed = Math.sqrt(tile.vx * tile.vx + tile.vy * tile.vy);
+        const scale = 1 + Math.min(1, speed * 3.5) * 0.3;
+
+        ctx.fillRect(tile.x, tile.y, tile.size * scale, tile.size * scale);
+      }
+
+      animationFrame = requestAnimationFrame(animate);
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      };
+    };
+
+    const handleMouseLeave = () => {
+      mouseRef.current = { x: -9999, y: -9999 };
+    };
+
+    resize();
+    animationFrame = requestAnimationFrame(animate);
+
+    window.addEventListener("resize", resize);
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseleave", handleMouseLeave);
+
+    const repInput = repulsionInputRef.current;
+    const attInput = attractionInputRef.current;
+    const tsInput = tileSizeInputRef.current;
+    const colInput = colorInputRef.current;
+
+    const onRepulsion = (e: Event) => {
+      repulsionRef.current = Number((e.target as HTMLInputElement).value);
+    };
+    const onAttraction = (e: Event) => {
+      attractionRef.current = Number((e.target as HTMLInputElement).value);
+    };
+    const onTileSize = (e: Event) => {
+      tileSizeRef.current = Number((e.target as HTMLInputElement).value);
+      buildTextTiles();
+    };
+    const onColor = (e: Event) => {
+      const t = Number((e.target as HTMLInputElement).value);
+      colorRef.current = t;
+      hueRef.current = t * 360;
+    };
+
+    repInput?.addEventListener("input", onRepulsion);
+    attInput?.addEventListener("input", onAttraction);
+    tsInput?.addEventListener("input", onTileSize);
+    colInput?.addEventListener("input", onColor);
+
+    return () => {
+      cancelAnimationFrame(animationFrame);
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseleave", handleMouseLeave);
+
+      repInput?.removeEventListener("input", onRepulsion);
+      attInput?.removeEventListener("input", onAttraction);
+      tsInput?.removeEventListener("input", onTileSize);
+      colInput?.removeEventListener("input", onColor);
+    };
+  }, [isMobile]);
+
+  // 1. Loading/Hydration State Guard
+  if (isMobile === null) {
+    return <footer className="w-full h-20 bg-black" />;
+  }
+
+  // 2. Generic Mobile Footer
+  if (isMobile) {
+    return (
+      <footer className="w-full bg-black py-8 px-6 text-center border-t border-zinc-900">
+        <p className="text-zinc-500 font-mono text-xs tracking-widest uppercase">
+          faraz.me ©{new Date().getFullYear()}
+        </p>
+      </footer>
+    );
+  }
+
+  // 3. Desktop Canvas Footer
   return (
-    <footer className="w-full">
-      <div className="bg-white h-[50vh]" />
-      <PixelTransition />
+    <footer className="relative w-full bg-black" style={{ height: "420px" }}>
+      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
 
-      <div
-        className="bg-[#0d0d0d] flex flex-col justify-between relative"
-        style={{ height: "75vh", padding: "2rem 2.5rem" }}
-      >
-        {/* TOP ROW */}
-        <div className="flex justify-between items-start">
-
-          {/* LEFT: identity block */}
-          <div className="flex flex-col items-start leading-none">
-            <h2
-              className="text-white select-none"
-              style={{
-                fontFamily: "var(--font-geist-sans, Geist, sans-serif)",
-                fontWeight: 700,
-                fontSize: "9vw",
-                marginBottom: "-0.2rem",
-              }}
-            >
-              faraz.me
-            </h2>
-
-            <p
-              className="text-white/40 italic text-lg leading-snug ml-3"
-              style={{ fontFamily: "Georgia, serif" }}
-            >
-              thank you for your time. i would love to connect
-            </p>
+      <div className="absolute left-0 right-0 z-20 px-6" style={{ bottom: "32px" }}>
+        <div className="flex items-center justify-between text-white text-[10px] uppercase tracking-[0.08em]">
+          <div className="flex items-center gap-3">
+            <span>Repulsion</span>
+            <input
+              ref={repulsionInputRef}
+              type="range"
+              min="0"
+              max="0.6"
+              step="0.01"
+              defaultValue="0.3"
+              className="custom-slider"
+            />
           </div>
 
-          {/* RIGHT: columns */}
-          <div className="flex gap-48 pt-6">
-            {[
-              {
-                heading: "Site",
-                links: [
-                  { label: "Home", href: "#" },
-                  { label: "About", href: "#" },
-                  { label: "Introduction", href: "#" },
-                  { label: "Projects", href: "#" },
-                ],
-              },
-              {
-                heading: "Articles",
-                links: [
-                  { label: "Placeholder 1", href: "#" },
-                  { label: "Placeholder 2", href: "#" },
-                ],
-              },
-              {
-                heading: "Contact",
-                links: [
-                  { label: "LinkedIn", href: "#" },
-                  { label: "GitHub", href: "#" },
-                  { label: "Email", href: "mailto:yo@faraz.me" },
-                ],
-              },
-            ].map(({ heading, links }) => (
-              <div key={heading}>
-                <p
-                  className="text-md tracking-[0.18em] text-white/25 uppercase mb-4"
-                  style={{
-                    fontFamily:
-                      "var(--font-geist-sans, Geist, sans-serif)",
-                  }}
-                >
-                  {heading}
-                </p>
-
-                <ul className="space-y-2">
-                  {links.map(({ label, href }) => (
-                    <li key={label}>
-                      <a
-                        href={href}
-                        className="text-[17px] text-white/60 hover:text-white transition-colors duration-200"
-                        style={{
-                          fontFamily:
-                            "var(--font-geist-sans, Geist, sans-serif)",
-                          fontWeight: 400,
-                        }}
-                      >
-                        {label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <div className="flex items-center gap-3">
+            <span>Tile Size</span>
+            <input
+              ref={tileSizeInputRef}
+              type="range"
+              min="6"
+              max="16"
+              step="1"
+              defaultValue="6"
+              className="custom-slider"
+            />
           </div>
-        </div>
 
-        {/* BOTTOM ROW */}
-        <div className="flex justify-between items-end">
+          <div className="flex items-center gap-3">
+            <span>Color</span>
+            <input
+              ref={colorInputRef}
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              defaultValue="0"
+              className="custom-slider"
+            />
+          </div>
 
-          {/* bottom-left copyright */}
-          <p
-            className="text-md text-white/50"
-            style={{ fontFamily: "Georgia, serif" }}
-          >
-            © {new Date().getFullYear()} Faraz Tehrani. All rights reserved.
-          </p>
-
-          {/* bottom-right art */}
-          <img
-            src="/art.png"
-            alt=""
-            className="object-contain mix-blend-screen"
-            style={{
-              width: "50vw",
-              maxHeight: "65vh",
-              marginBottom: "-2rem",
-              marginRight: "-2.5rem",
-            }}
-          />
+          <div className="flex items-center gap-3">
+            <span>Attraction</span>
+            <input
+              ref={attractionInputRef}
+              type="range"
+              min="0.0005"
+              max="0.0035"
+              step="0.00005"
+              defaultValue="0.002"
+              className="custom-slider"
+            />
+          </div>
         </div>
       </div>
     </footer>
