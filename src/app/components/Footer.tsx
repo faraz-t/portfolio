@@ -39,7 +39,6 @@ export default function Footer() {
   }, []);
 
   useEffect(() => {
-    // If we're on mobile or still detecting, don't spin up the heavy canvas logic
     if (isMobile === null || isMobile) return;
 
     const canvas = canvasRef.current;
@@ -234,23 +233,20 @@ export default function Footer() {
     };
   }, [isMobile]);
 
-  // 1. Loading/Hydration State Guard
   if (isMobile === null) {
     return <footer className="w-full h-20 bg-black" />;
   }
 
-  // 2. Generic Mobile Footer
   if (isMobile) {
     return (
       <footer className="w-full bg-black py-8 px-6 text-center border-t border-zinc-900">
-        <p className="text-zinc-500 font-mono text-xs tracking-widest uppercase">
+        <p className="text-xs font-medium tracking-wide text-white/80 whitespace-nowrap">
           faraz.me ©{new Date().getFullYear()}
         </p>
       </footer>
     );
   }
 
-  // 3. Desktop Canvas Footer
   return (
     <footer className="relative w-full bg-black" style={{ height: "420px" }}>
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />

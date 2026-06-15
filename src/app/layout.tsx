@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "./components/Header";
 import { Geist, Playfair_Display, Cormorant_Garamond, Archivo_Black, Anton} from "next/font/google";
 import MouseGlow from "./components/MouseGlow";
+import { Analytics } from "@vercel/analytics/next"
 
 const anton = Anton({
   subsets: ["latin"],
@@ -56,6 +57,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <MouseGlow />
+        <Analytics />
       </body>
     </html>
   );
