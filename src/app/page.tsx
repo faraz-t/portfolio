@@ -11,8 +11,7 @@ const projectItems = [
     description: (
       <>
         Mobile app to create study groups focused on social accountability.
-        Ranked <span className="font-semibold text-white">1st Place</span> by
-        judges at a project demo showcase.
+        Ranked <span className="font-semibold text-white">1st Place</span> out of 15+ teams at a project demo showcase.
       </>
     ),
     tags: ["mobile", "native-app"],
@@ -38,7 +37,7 @@ const projectItems = [
     name: "Z4 Finance",
     description: (
       <>
-        [WIP] Stock research & analytics project combining yfinance data with sentiments from investing subreddits to generate insights on market trends.
+        Stock research & analytics project combining yfinance data with sentiments from investing subreddits to generate insights on market trends. (WIP)
       </>
     ),
     tags: ["finance", "quant", "nlp", "api"],
@@ -62,7 +61,7 @@ const projectItems = [
     name: "Custom Neural Network",
     description: (
       <>
-        Artificial neural network implemented from scratch in{" "}
+        Artificial neural network library implemented from scratch in{" "}
         <span className="font-semibold text-white">C++</span> to achieve{" "}
         <span className="font-semibold text-white">97% accuracy</span> on image
         classification.
@@ -77,8 +76,8 @@ const projectItems = [
     name: "BillBoard",
     description: (
       <>
-        Full-stack policy discussion platform with forums, petitions, polls,
-        maps, AI integration, and more. Placed{" "}
+        Full-stack government policy discussion platform with forums, petitions, polls,
+        interactive maps, AI integration, and more. Placed{" "}
         <span className="font-semibold text-white">Top 10</span> @ HackTheChange.
       </>
     ),
@@ -109,7 +108,7 @@ const projectItems = [
         <span className="font-semibold text-white">Top 10</span> @ ProduHacks.
       </>
     ),
-    tags: ["web-app", "ai", "cybersecurity"],
+    tags: ["web-app", "cybersecurity", "llm"],
     image: "/projects/immuneit.png",
     link: "https://github.com/Jacob-Guglielmin/ImmuneIT",
   },
