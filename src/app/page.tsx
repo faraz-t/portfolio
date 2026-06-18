@@ -42,6 +42,7 @@ const projectItems = [
     ),
     tags: ["finance", "quant", "nlp", "api"],
     image: "/projects/z4finance.png",
+    link: "https://github.com/faraz-t/z4"
   },
   {
     year: "2026",
