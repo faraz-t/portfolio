@@ -1,8 +1,16 @@
+import type { ReactNode, ComponentType } from "react";
 import Project from "./components/Project";
 import Fade from "./components/Fade";
 import Showcase from "./components/Showcase";
 import Footer from "./components/Footer";
-import { Github, Linkedin, Mail, MapPin } from "lucide-react";
+import {
+  Github,
+  Linkedin,
+  Mail,
+  MapPin,
+  GraduationCap,
+  Cpu,
+} from "lucide-react";
 
 const projectItems = [
   {
@@ -145,6 +153,89 @@ const projectItems = [
   },
 ];
 
+const tones = {
+  red: "text-red-400",
+  blue: "text-blue-400",
+  violet: "text-violet-400",
+  emerald: "text-emerald-400",
+  amber: "text-amber-400",
+  sky: "text-sky-400",
+  orange: "text-orange-400",
+} as const;
+
+type Tone = keyof typeof tones;
+
+function Em({ children }: { children: ReactNode }) {
+  return <span className="text-white">{children}</span>;
+}
+
+function Highlight({ children }: { children: ReactNode }) {
+  return (
+    <span
+      className="gradient-text"
+      style={{
+        display: "inline",
+        WebkitBoxDecorationBreak: "clone",
+        boxDecorationBreak: "clone",
+        animationDelay: "-4s",
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
+function Chip({
+  tone,
+  href,
+  icon: Icon,
+  logo,
+  children,
+}: {
+  tone: Tone;
+  href?: string;
+  icon?: ComponentType<{ size?: number | string; className?: string }>;
+  logo?: string;
+  children: ReactNode;
+}) {
+  const className = `box-decoration-clone rounded-lg border border-gray-700 px-2 py-0.5 text-[0.9em] font-medium text-gray-200 transition ${
+    href ? "hover:border-primary/60 hover:text-white hover:shadow-md hover:shadow-primary/20" : ""
+  }`;
+  const content = (
+    <>
+      {logo && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={logo}
+          alt=""
+          aria-hidden="true"
+          className="mr-1.5 inline-block h-[0.95em] w-auto align-[-0.12em]"
+        />
+      )}
+      {Icon && (
+        <Icon
+          size="1em"
+          className={`mr-1.5 inline-block align-[-0.15em] ${tones[tone]}`}
+        />
+      )}
+      {children}
+    </>
+  );
+
+  return href ? (
+    <a
+      href={href}
+      target={href.startsWith("mailto:") ? undefined : "_blank"}
+      rel="noopener noreferrer"
+      className={className}
+    >
+      {content}
+    </a>
+  ) : (
+    <span className={className}>{content}</span>
+  );
+}
+
 export default function HomePage() {
   return (
     <main>
@@ -160,53 +251,63 @@ export default function HomePage() {
           </p>
         </Fade>
 
+        {/* About */}
         <Fade>
-          <section aria-labelledby="about-me" className="mb-6">
-            <h2 id="about-me" className="highlight text-base sm:text-lg md:text-xl text-white mb-2">
-              Mission:
-            </h2>
-            <ul className="list-disc pl-6 text-base sm:text-lg md:text-xl text-[var(--foreground)]/75 leading-6 sm:leading-7 space-y-1">
-              <li>
-                I am passionate about building software that is{" "}
-                <span className="text-white">simple</span>,{" "}
-                <span className="text-white">powerful</span>, and{" "}
-                <span className="text-white">elegant</span>.
-              </li>
-              <li>
-                I mainly specialize in{" "}
-                <span className="text-white">full-stack development</span>,{" "}
-                <span className="text-white">data science</span>, and{" "}
-                <span className="text-white">machine learning</span>.
-              </li>
-            </ul>
-          </section>
+          <p className="text-base sm:text-lg md:text-xl text-[var(--foreground)]/75 leading-7 sm:leading-8 mb-6">
+            I believe in building software that is{" "}
+            <Em>simple, powerful, and elegant</Em>. I have a{" "}
+            <Em>degree in Computer Science + Data Science</Em>{" "}
+            from{" "}
+            <Chip tone="blue" icon={GraduationCap} href="https://www.ubc.ca">
+              UBC
+            </Chip>
+            , and my expertise lies in full-stack development, data science,
+            and machine learning.
+          </p>
         </Fade>
 
         <Fade>
-          <section aria-labelledby="about-me" className="mb-6">
-            <h2 id="about-me" className="highlight text-base sm:text-lg md:text-xl text-white mb-2">
-              History:
-            </h2>
-            <ul className="list-disc pl-6 text-base sm:text-lg md:text-xl text-[var(--foreground)]/75 leading-6 sm:leading-7 space-y-1">
-              <li>
-                I currently work at <span className="text-white">Health Canada</span> as a <span className="text-white">Junior Data Scientist</span>, where I focus on data analysis, machine learning, and developing internal tools.
-              </li>
-              <li>
-                I have a degree in Computer Science + Data Science from <span className="text-white">UBC</span>.
-              </li>
-              <li>
-                I was previously part of <span className="text-white">UBC Bionics</span>, where I built & maintained <span className="text-white">two full-stack sites</span> while also leading a team of developers, finance officers, and sponsorship coordinators.
-              </li>
-              <li>
-                I previously worked as a <span className="text-white">freelance developer</span> for a review-aggregator company, where my contributions led to a 87% increase in user satisfaction.
-              </li>
-            </ul>
-          </section>
+          <p className="text-base sm:text-lg md:text-xl text-[var(--foreground)]/75 leading-7 sm:leading-8 mb-6">
+            I&apos;m currently a <Highlight>Junior Data Scientist</Highlight> at{" "}
+            <Chip
+              tone="red"
+              logo="/healthcanada.svg"
+              href="https://www.canada.ca/en/health-canada.html"
+            >
+              Health Canada
+            </Chip>
+            , where I dig into data, train & evaluate models, and build
+            internal tools. Previously, I worked with{" "}
+            <Chip tone="violet" icon={Cpu} href="https://ubcbionics.com">
+              UBC Bionics
+            </Chip>{" "}
+            to build and maintain <Em>two full-stack sites</Em> while leading a
+            team of developers, finance officers, and sponsorship coordinators.
+            Before that, I freelanced for a review-aggregator company, where my
+            work drove an <Em>87% increase</Em> in user satisfaction.
+          </p>
         </Fade>
+
         <Fade>
-          <p className="text-base sm:text-lg md:text-xl text-[var(--foreground)]/75 leading-6 sm:leading-7 mb-6">
-            Below is a collection of some of my recent projects and
-            experiments. I hope you find something interesting!
+          <p className="text-base sm:text-lg md:text-xl text-[var(--foreground)]/75 leading-7 sm:leading-8">
+            Below are some recent projects and experiments - I hope you find
+            something interesting! The rest lives on{" "}
+            <Chip tone="amber" icon={Github} href="https://github.com/faraz-t">
+              GitHub
+            </Chip>{" "}
+            and{" "}
+            <Chip
+              tone="sky"
+              icon={Linkedin}
+              href="https://linkedin.com/in/farazht"
+            >
+              LinkedIn
+            </Chip>
+            , but don&apos;t hesitate to{" "}
+            <Chip tone="orange" icon={Mail} href="mailto:youremail@example.com">
+              reach out
+            </Chip>
+            !
           </p>
         </Fade>
 
